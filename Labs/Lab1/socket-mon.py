@@ -59,4 +59,4 @@ for key,value in sorted(store.iteritems(), key=lambda x:(x[6],x[1])):
 	print '"%d", "%s@%s", "%s@%s", "%s" \n' %(store[key][0], store[key][1],store[key][2],store[key][3],store[key][4], store[key][5])
 
 #[t[0] for t in sorted(d.items(), key=lambda x:(x[1],x[0]))]
-#['Bob', 'Alex', 'Bill', 'Charles']
+
