@@ -8,7 +8,7 @@ store={}
 
 for line in psutil.net_connections(kind='tcp'):
 
-	if(str(line.pid) != "None" and str(line.raddr)!="()"):
+	if(str(line.pid) != "None" and str(line.raddr)!="()" and str(line.laddr) != "None" and str(line.raddr) != "None"):
 		pid=int(line.pid)
 		laddr=str(line.laddr)
 		raddr=str(line.raddr)
@@ -42,7 +42,7 @@ for line in psutil.net_connections(kind='tcp'):
 		if pid in store:
 		#if store.has_key(pid):
   			#print pid, " FOUND"
-  			nu=nu+store[pid][0]
+  			nu=1+store[pid][0]
   			store[pid][0]=nu
   			store[pid].append([laddr1,laddr2, raddr1,raddr2,status])
 		else: 
