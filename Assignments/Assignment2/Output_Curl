@@ -1,0 +1,135 @@
+POST /menu
+
+curl -X POST \
+  https://a5jy1bk58h.execute-api.us-east-1.amazonaws.com/pizzashop/menu \
+  -H 'cache-control: no-cache' \
+  -H 'content-type: application/json' \
+  -d '{
+    "menu_id": "1030",
+    "store_name": "Pizza Hut",
+    "selection": [
+        "Cheese",
+        "Pepperoni"
+    ],
+    "size": [
+        "Slide", "Small", "Medium", "Large", "X-Large"
+    ],
+    "price": [
+        "3.50", "7.00", "10.00", "15.00", "20.00"
+    ],
+    "store_hours": {
+        "Mon": "10am-10pm",
+        "Tue": "10am-10pm",
+        "Wed": "10am-10pm",
+        "Thu": "10am-10pm",
+        "Fri": "10am-10pm",
+        "Sat": "11am-12pm",
+        "Sun": "11am-12pm"
+    }
+}'
+
+Response:
+"200 OK"
+
+-------------------
+
+PUT /menu/{menu_id}
+
+curl -X PUT \
+  https://a5jy1bk58h.execute-api.us-east-1.amazonaws.com/pizzashop/menu/1030 \
+  -H 'cache-control: no-cache' \
+  -H 'content-type: application/json' \
+  -H 'postman-token: c6e2901d-b446-6841-b48e-ea3f760c88ad' \
+  -d '{
+    "menu_id": "1030",
+    "selection": [
+        "Cheese",
+        "Pepperoni",
+        "Vegetable"
+    ]
+}'
+
+Response:
+"200 OK"
+--------------------
+DEL /menu/{menu_id}
+
+curl -X DELETE \
+  https://a5jy1bk58h.execute-api.us-east-1.amazonaws.com/pizzashop/menu/1030 \
+  -H 'cache-control: no-cache' \
+
+Response:
+"200 OK"
+--------------------
+
+GET /menu/{menu_id}
+
+curl -X GET \
+  https://a5jy1bk58h.execute-api.us-east-1.amazonaws.com/pizzashop/menu/1030 \
+  -H 'cache-control: no-cache' \
+
+Response:
+{"menu_id": "1030", "selection": ["Cheese", "Pepperoni", "Vegetable"], "price": ["3.50", "7.00", "10.00", "15.00", "20.00"], "store_hours": {"Wed": "10am-10pm", "Sun": "11am-12pm", "Fri": "10am-10pm", "Tue": "10am-10pm", "Mon": "10am-10pm", "Thu": "10am-10pm", "Sat": "11am-12pm"}, "store_name": "Pizza Hut", "size": ["Slide", "Small", "Medium", "Large", "X-Large"]}
+
+=========================================
+=========================================
+
+POST /order
+
+curl -X POST \
+  https://a5jy1bk58h.execute-api.us-east-1.amazonaws.com/pizzashop/order \
+  -H 'authorization: AWS4-HMAC-SHA256 Credential=AKIAJGX3TXLYSSCAPMWA/20170512/us-east-1/execute-api/aws4_request, SignedHeaders=content-length;content-type;host;x-amz-date, Signature=dcb796b2e317b9b49b110a82cb3d7c53ae7c18ea6fb34b58d647d9dc9bed7987' \
+  -H 'cache-control: no-cache' \
+  -H 'content-length: 129' \
+  -H 'content-type: application/json' \
+  -H 'host: a5jy1bk58h.execute-api.us-east-1.amazonaws.com' \
+  -d '{   
+    "menu_id": "1030",
+    "order_id": "2030",
+    "customer_name": "John Smith",
+    "customer_email": "foobar@gmail.com"
+}'
+
+Response:
+{"Message": "Hi John Smith, please choose one of these selection:  1. Cheese, 2. Pepperoni, 3. Vegetable"}
+----------------
+
+PUT /order/{order_id}
+
+curl -X PUT \
+  https://a5jy1bk58h.execute-api.us-east-1.amazonaws.com/pizzashop/order/2030 \
+  -H 'authorization: AWS4-HMAC-SHA256 Credential=AKIAJGX3TXLYSSCAPMWA/20170512/us-east-1/execute-api/aws4_request, SignedHeaders=content-length;content-type;host;x-amz-date, Signature=dcb796b2e317b9b49b110a82cb3d7c53ae7c18ea6fb34b58d647d9dc9bed7987' \
+  -H 'cache-control: no-cache' \
+  -H 'content-type: application/json' \
+  -d '{
+    "input": "1"
+}'
+
+Response:
+{"Message": "Which size do you want? 1. Slide, 2. Small, 3. Medium, 4. Large, 5. X-Large"}
+
+-------------
+PUT /order/{order_id}
+
+curl -X PUT \
+  https://a5jy1bk58h.execute-api.us-east-1.amazonaws.com/pizzashop/order/2030 \
+  -H 'authorization: AWS4-HMAC-SHA256 Credential=AKIAJGX3TXLYSSCAPMWA/20170512/us-east-1/execute-api/aws4_request, SignedHeaders=content-length;content-type;host;x-amz-date, Signature=dcb796b2e317b9b49b110a82cb3d7c53ae7c18ea6fb34b58d647d9dc9bed7987' \
+  -H 'cache-control: no-cache' \
+  -H 'content-type: application/json' \
+  -d '{
+    "input": "4"
+}'
+
+Response:
+{"Message": "Your order costs 15.00. We will email you when the order is ready. Thank you!"}
+
+----------------
+
+GET /order/{order_id}
+curl -X GET \
+  https://a5jy1bk58h.execute-api.us-east-1.amazonaws.com/pizzashop/order/2020 \
+  -H 'authorization: AWS4-HMAC-SHA256 Credential=AKIAJGX3TXLYSSCAPMWA/20170512/us-east-1/execute-api/aws4_request, SignedHeaders=content-length;content-type;host;x-amz-date, Signature=dcb796b2e317b9b49b110a82cb3d7c53ae7c18ea6fb34b58d647d9dc9bed7987' \
+  -H 'cache-control: no-cache' \
+
+Response:
+{"menu_id": "1020", "customer_email": "foobar@gmail.com", "order_id": "2020", "order_status": "processing", "order1": {"selection": "Cheese", "costs": "15.00", "order_time": "05-12-17 09:00", "size": "Large"}, "customer_name": "John Smith"}
